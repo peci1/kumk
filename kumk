@@ -408,6 +408,7 @@ do_config_pkg(){
         which dkms >/dev/null && do_dkms ${VER_LONG}
     fi
 
+    sed "/Depends: linux-headers-${VER_LONG/-generic}, libc6/s/libelf1t64 (>= [^)]*), //" -i /var/lib/dpkg/status
     sed "/Depends: linux-headers-${VER_LONG/-generic}, libc6/s/libc6 (>= 2...)/libc6 (>= ${libc6_ver})/" -i /var/lib/dpkg/status
 
     [[ ${ignore_libssl3} ]] && {
