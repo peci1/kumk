@@ -6,7 +6,7 @@ set -e
 
 VERSION="0.6.14"
 
-URL="https://kernel.ubuntu.com/~kernel-ppa/mainline"
+URL="https://kernel.ubuntu.com/~kernel-ppa/mainline/"
 DATA=/tmp/kumk
 [[ ! $2 = *lowlatency* ]] && MODE="generic" ||  MODE="lowlatency"
 TMP="${DATA}/tmp"
@@ -231,8 +231,7 @@ detect_arch(){
 }
 
 check_url_available(){
-    URL_PING="$(echo "${URL}" | sed 's#.*://##;s#/.*##')"
-    ping -c1 ${URL_PING} &>/dev/null || {
+    wget --spider -q -O /dev/null "${URL}" || {
         set_locale
         eerror "${error_server_or_internet_not_available}"
         exit
